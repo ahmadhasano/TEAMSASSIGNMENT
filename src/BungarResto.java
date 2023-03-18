@@ -12,9 +12,9 @@ public class BungarResto {
         String period = "";
         if (currentHour >= 3 && currentHour < 9) {
             period = "pagi";
-        } else if (currentHour < 15) {
+        } else if (currentHour >= 9 && currentHour < 15) {
             period = "siang";
-        } else if (currentHour < 18) {
+        } else if (currentHour >= 15 && currentHour < 18) {
             period = "sore";
         } else {
             period = "malam";
@@ -25,20 +25,20 @@ public class BungarResto {
         int customerCount = 0;
         boolean expectInput = true;
         while (expectInput) {
-            System.out.println("Pesanan untuk berapa orang:");
+            System.out.printf("%s%3s","\t\tPesan untuk berapa orang",": ");
             try {
                 customerCount = Integer.parseInt(String.valueOf(input.nextLine()));
                 if (customerCount < 1) {
-                    System.out.println("Harap masukkan angka yang benar!\n");
+                    System.out.println("\t\tMinimal ada 1 orang..");
                 } else {
                     expectInput = false;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Harap masukkan angka yang benar!\n");
+                System.out.println("\t\tMohon masukkan angka..");
             }
         }
 
-        System.out.println("Pesanan atas nama:");
+        System.out.printf("%s%10s","\t\tPesanan atas nama",": ");
         String customerName = input.nextLine();
 
         ///// Price List /////
@@ -49,11 +49,11 @@ public class BungarResto {
                 Map.of("name","Kwetiaw Siram Spesial","price",13579.13),
                 Map.of("name","Kambing Guling Spesial","price",98765.43)
         );
-        System.out.println("\nMenu Spesial hari ini");
-        System.out.println("=====================");
+        System.out.println("\n\t\tMenu Spesial hari ini");
+        System.out.println("\t\t=====================");
         int idx = 1;
         for (Map menu: menus) {
-            System.out.printf("%d. %-30s@ Rp. %8.2f %n", idx, menu.get("name"), menu.get("price"));
+            System.out.printf("\t\t%d. %-30s@ Rp. %8.2f %n", idx, menu.get("name"), menu.get("price"));
             idx++;
         }
 
@@ -64,7 +64,7 @@ public class BungarResto {
         for (Map menu: menus) {
             expectInput = true;
             while (expectInput) {
-                System.out.printf("%d. %-25s=%n", idx, menu.get("name"));
+                System.out.printf("%d. %-25s= ", idx, menu.get("name"));
                 try {
                     int order = Integer.parseInt(String.valueOf(input.nextLine()));
                     if (order >= 0 && order <= 10) {
@@ -72,10 +72,10 @@ public class BungarResto {
                         idx++;
                         expectInput = false;
                     } else {
-                        System.out.println("Harap masukkan angka 0 s.d. 10!\n");
+                        System.out.println("Maksimal 10 porsi..");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Harap masukkan angka yang benar!\n");
+                    System.out.println("Mohon masukkan angka..");
                 }
             }
         }
