@@ -19,7 +19,7 @@ public class BungarResto {
         } else {
             period = "malam";
         }
-        System.out.printf("Selamat %s...\n\n", period);
+        System.out.printf("\t\tSelamat %s...\n\n", period);
 
         // Customer data input
         int customerCount = 0;
