@@ -33,7 +33,7 @@ public class DeretAngka {
             if (nim.length() != 10) {
                 System.out.println("Harap masukkan NIM 10 karakter.\n");
             } else if (!nim.matches("[0-9]+")) {
-                System.out.println("Nama hanya boleh angka.\n");
+                System.out.println("NIM hanya boleh angka.\n");
             } else {
                 expectInput = false;
             }
