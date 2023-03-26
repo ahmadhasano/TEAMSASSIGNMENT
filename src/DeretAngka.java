@@ -2,13 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Dererthanif {
+public class DeretAngka {
     public static void main(String[] args) {
         // Initiate scanner
         Scanner input = new Scanner(System.in);
 
         /* Input Nama */
-        // User name
         String userName = "";
         boolean expectInput = true;
         while (expectInput) {
