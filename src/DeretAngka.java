@@ -50,82 +50,88 @@ public class DeretAngka {
         System.out.println("@".repeat(100));
         System.out.println("");
 
+        /* Calculation */
         while (true) {
-            int angka = 0;
-            boolean ketentuanAngka = true;
-            while (ketentuanAngka) {
-                System.out.print("Masukkan Sembarang Angka [5..20] : ");
-                angka = input.nextInt();
-                if (angka >= 5 && angka <= 20) {
-                    ketentuanAngka = false;
-                } else {
-                    System.out.println("Masukkan angka 5-20...");
-                }
-            }
-
-            System.out.println("");
+            // Input number
             System.out.println("@".repeat(100));
+            int numberInput = 0;
+            expectInput = true;
+            while (expectInput) {
+                System.out.print("\nMasukkan Sembarang Angka [5..20]: ");
+                try {
+                    numberInput = Integer.parseInt(String.valueOf(input.nextLine()));
+                    if ((numberInput < 5) || (numberInput > 20)) {
+                        System.out.println("Harap masukkan angka antara 5 s.d. 20.");
+                    } else {
+                        expectInput = false;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Harap masukkan angka antara 5 s.d. 20.");
+                }
+            }
+            System.out.println();
+            System.out.println("@".repeat(100));
+
             System.out.println("\nDeret Bilangan");
-            System.out.println("#".repeat(15));
-            System.out.println("");
+            System.out.println("################");
 
-            //Bilangan Genap
-            System.out.println(" " + angka + " Bilangan Genap : ");
-            int jmlGenap = 1, genap, totalGenap = 0;
-            for (genap = 1; jmlGenap <= angka; genap++) {
-                if (genap % 2 == 0) {
-                    System.out.print(genap + " ");
-                    jmlGenap = jmlGenap + 1;
-                    totalGenap += genap;
-                }
-            }
-            System.out.println("\nHasil Penjumlahan = " + totalGenap);
-            System.out.println("");
-
-            //Bilangan Ganjil
-            System.out.println(" " + angka + " Bilangan Ganjil : ");
-            int jmlGanjil = 1, ganjil, totalGanjil = 0;
-            for (ganjil = 1; jmlGanjil <= angka; ganjil++) {
-                if (ganjil % 2 != 0) {
-                    System.out.print(ganjil + " ");
-                    jmlGanjil = jmlGanjil + 1;
-                    totalGanjil += ganjil;
-                }
-            }
-            System.out.println("\nHasil Penjumlahan = " + totalGanjil);
-            System.out.println("");
-
-            //Deret Fibonacci
-            System.out.println(" " + angka + " Bilangan Fibonacci : ");
-            int a = 1, b = 1, value = 0, totalFibo = 0;
-            while (value < angka) {
-                if (value < angka) {
-                    System.out.print(a + " ");
-                    a = a + b;
-                    value++;
-                }
-                if (value < angka) {
-                    System.out.print(b + " ");
-                    b = b + a;
-                    value++;
-                }
-                totalFibo += a;
-            }
-            System.out.println("\nHasil Penjumlahan = " + totalFibo);
-            System.out.println("");
-
-            //Perulangan
-
-            boolean pilihan = true;
-            while(pilihan) {
-                String jawab = input.nextLine();
-                if (jawab.equalsIgnoreCase("T")) {
-                    System.out.println("Terima kasih..");
-                    System.exit(0);
-                } if (jawab.equalsIgnoreCase("Y")) {
-                    pilihan = false;
+            // Buat deret
+            List<Integer> deretGenap = new ArrayList<>();
+            List<Integer> deretGanjil = new ArrayList<>();
+            List<Integer> deretFibonacci = new ArrayList<>();
+            for (int i = 0; i < numberInput; i++) {
+                deretGenap.add((i+1)*2);
+                if (i == 0) {
+                    deretGanjil.add(1);
+                    deretFibonacci.add(1);
                 } else {
-                    System.out.print("Anda ingin mengulang [Y/T]: ");
+                    deretGanjil.add(deretGanjil.get(i-1) + 2);
+                    if (i == 1) {
+                        deretFibonacci.add(1);
+                    } else {
+                        deretFibonacci.add(deretFibonacci.get(i-2) + deretFibonacci.get(i-1));
+                    }
+                }
+            }
+
+            // Deret genap
+            System.out.printf("%d Bilangan Genap:%n", numberInput);
+            int totalGenap = 0;
+            for (int genap: deretGenap) {
+                System.out.printf("%d ", genap);
+                totalGenap += genap;
+            }
+            System.out.printf("%nHasil Penjumlahan = %d%n%n", totalGenap);
+
+            // Deret ganjil
+            System.out.printf("%d Bilangan Ganjil:%n", numberInput);
+            int totalGanjil = 0;
+            for (int number: deretGanjil) {
+                System.out.printf("%d ", number);
+                totalGanjil += number;
+            }
+            System.out.printf("%nHasil Penjumlahan = %d%n%n", totalGanjil);
+
+            // Deret fibonacci
+            System.out.printf("%d Bilangan Fibonacci:%n", numberInput);
+            int totalFibonacci = 0;
+            for (int number: deretFibonacci) {
+                System.out.printf("%d ", number);
+                totalFibonacci += number;
+            }
+            System.out.printf("%nHasil Penjumlahan = %d%n%n", totalFibonacci);
+
+            /* Ask for exit */
+            System.out.print("Anda ingin mengulang [y/t]: ");
+            boolean confirming = true;
+            while(confirming) {
+                String conformation = input.nextLine();
+                if (conformation.equalsIgnoreCase("T")) {
+                    System.exit(0);
+                } else if (conformation.equalsIgnoreCase("Y")) {
+                    confirming = false;
+                } else {
+                    System.out.print("Harap jawab [y/t]: ");
                 }
             }
         }
